@@ -13,13 +13,13 @@ public class Project
 	private String label;
 	private int idPortfolio;
 	private int idType;
-	private float value;
+	private float totalValue;
 
 	private List<Evaluate> projectEvaluation;
 
 	private List<AssignedResource> resourceRequired;
 	
-	Project(int id,String label,int idPortfolio,int idType)
+	public Project(int id,String label,int idPortfolio,int idType)
 	{
 		this.id=id;
 		this.label=label;
@@ -67,41 +67,34 @@ public class Project
 		return resourceRequired;
 	}
 
-	public void setProjectEvaluation(List<Evaluate> projectEvaluation)
-	{
-		this.projectEvaluation = projectEvaluation;
-	}
-
 	public List<Evaluate> getProjectEvaluation()
 	{
 		return projectEvaluation;
 	}
 
-	public double[] getWeights()
+
+	public double[] getCtriteriaValues()
 	{
+		this.projectEvaluation = EvaluateQueries.getProjectEvaluation(id);
 		double[] ret=new double[projectEvaluation.size()];
 		int index=0;
 		for(Evaluate e:projectEvaluation)
 		{
 			ret[index]=e.getValue();
+			System.out.println(e.getValue());
 			index++;
 		}
 		return ret;
 	}
 
-	public void initProjectEvaluation()
+	public float getTotalValue()
 	{
-		this.projectEvaluation = EvaluateQueries.getProjectEvaluation(id);
+		return totalValue;
 	}
 
-	public float getValue()
+	public void setTotalValue(float totalValue)
 	{
-		return value;
-	}
-
-	public void setValue(float value)
-	{
-		this.value = value;
+		this.totalValue = totalValue;
 	}
 
 

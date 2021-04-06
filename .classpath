@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="src" path="src"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/jre-10.0.2">
+		<attributes>
+			<attribute name="module" value="true"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry exported="true" kind="lib" path="res/lib/sqlite-jdbc-3.23.1.jar"/>
+	<classpathentry exported="true" kind="lib" path="res/lib/javafx-swt.jar"/>
+	<classpathentry exported="true" kind="lib" path="res/lib/javafx.base.jar"/>
+	<classpathentry exported="true" kind="lib" path="res/lib/javafx.controls.jar"/>
+	<classpathentry exported="true" kind="lib" path="res/lib/javafx.fxml.jar"/>
+	<classpathentry exported="true" kind="lib" path="res/lib/javafx.graphics.jar"/>
+	<classpathentry exported="true" kind="lib" path="res/lib/javafx.media.jar"/>
+	<classpathentry exported="true" kind="lib" path="res/lib/javafx.swing.jar"/>
+	<classpathentry exported="true" kind="lib" path="res/lib/javafx.web.jar"/>
+	<classpathentry exported="true" kind="lib" path="res/lib/prefuse.jar"/>
+	<classpathentry kind="output" path="bin"/>
+</classpath>

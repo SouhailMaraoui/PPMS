@@ -1,8 +1,10 @@
 package BackEnd.Project;
 
-import BackEnd.Evaluate.Evaluate;
 import BackEnd.Evaluate.EvaluateQueries;
+import BackEnd.ProjectStatue.ProjectStatueQueries;
 import BackEnd.Queries;
+import BackEnd.ResToProject.ResToProjectQueries;
+import BackEnd.Utility;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -41,31 +43,21 @@ public class ProjectQueries
         return null;
     }
 
-    public static List<Project> getProjectsByPortfolio(int idPort)
+    public static int getPortfolioId(int idProject)
     {
-        List<Project> projects=new ArrayList<>();
-        ResultSet rs=Queries.getResultSetAdvanced("projet","*","where idPortfeuille="+idPort+" order by id");
+        ResultSet rs=Queries.getResultSetWhere("projet","*","id="+idProject);
         try
         {
-            while(rs.next())
+            if(rs.next())
             {
-                int id=rs.getInt(1);
-                String label=rs.getString(2);
-                int idPortfolio=rs.getInt(3);
-                int idType=rs.getInt(4);
-                projects.add(new Project(id,label,idPortfolio,idType));
+                return rs.getInt(3);
             }
-            for(Project project:projects)
-            {
-                List<Evaluate> projectEvaluation= EvaluateQueries.getProjectEvaluation(project.getId());
-                project.setProjectEvaluation(projectEvaluation);
-            }
-
         }
-        catch (SQLException e)
-        {e.printStackTrace();}
-
-        return projects;
+        catch(SQLException e)
+        {
+            e.printStackTrace();
+        }
+        return -1;
     }
 
     public static void updateProject(int id,String label,int idPortfolio,int idType)
@@ -73,7 +65,6 @@ public class ProjectQueries
         Queries.modifyCell("projet","libelle",label,"id="+id);
         Queries.modifyCell("projet","idTypeProjet",String.valueOf(idType),"id="+id);
         Queries.modifyCell("projet","idPortfeuille",String.valueOf(idPortfolio),"id="+id);
-
     }
 
     public static List<String> getProjectsRef()
@@ -91,5 +82,19 @@ public class ProjectQueries
         {e.printStackTrace();}
 
         return projectsRef;
+    }
+
+    public static void resetProject(int idProject,int idUser)
+    {
+        ResToProjectQueries.resetTable(idProject);
+        EvaluateQueries.resetEvaluation(idProject,idUser);
+        ProjectStatueQueries.addToDatabase(idProject,"Non Evalué",0, Utility.getDatetime());
+    }
+
+    public static void resetProject(int idProject)
+    {
+        ResToProjectQueries.resetTable(idProject);
+        EvaluateQueries.resetEvaluation(idProject);
+        ProjectStatueQueries.addToDatabase(idProject,"Non Evalué",0, Utility.getDatetime());
     }
 }

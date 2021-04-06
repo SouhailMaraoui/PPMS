@@ -5,8 +5,6 @@ public class Resource
 	private int id;
 	private int idCategory;
 	private String label;
-	
-	private static int count=0;
 
 	public Resource(int id,String label,int idCategory)
 	{
@@ -24,4 +22,10 @@ public class Resource
 	{
 		return label;
 	}
+
+	public int getIdCategory()
+	{
+		return idCategory;
+	}
+	
 }
